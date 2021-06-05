@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+  <changeSet author="John Watson" id="1">
+    <tagDatabase tag="v0.0.0" />
+  </changeSet>
+  <changeSet author="John Watson" id="2">
+    <tagDatabase tag="v1.0.0" />
+  </changeSet>
+  <changeSet author="John Watson" id="3">
+    <createTable tableName="messages">
+      <column autoIncrement="true" name="messageId" type="INTEGER">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="paymentId_pkey"/>
+      </column>
+      <column name="sbi" type="INTEGER"/>
+      <column name="agreementNumber" type="VARCHAR(255)"/>
+      <column name="message" type="JSON"/>
+      <column name="createdAt" type="TIMESTAMP WITH TIME ZONE">
+         <constraints nullable="false"/>
+      </column>
+      <column name="updatedAt" type="TIMESTAMP WITH TIME ZONE">
+         <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,98 @@
+environment: development
+name: ffc-sfi-agreement-viewer
+namespace: ffc-sfi
+workstream: ffc-sfi
+image: ffc-sfi-agreement-viewer
+
+labels: {}
+
+appInsights:
+  key:
+
+containerConfigMap:
+  name: ffc-sfi-agreement-viewer-config-map
+
+containerSecret:
+  name: ffc-sfi-agreement-viewer-container-secret
+  type: Opaque
+
+deployment:
+  restartPolicy: Always
+  priorityClassName: default
+  replicas: 1
+  minReplicas: 2
+  maxReplicas: 4
+  cpuThreshold: 80
+  memoryThreshold: 80
+  minReadySeconds: 0
+
+container:
+  imagePullPolicy: IfNotPresent
+  requestMemory: 10Mi
+  requestCpu: 10m
+  limitMemory: 120Mi
+  limitCpu: 120m
+  port: 3004
+  messageQueueHost: namespace.servicebus.windows.net
+  eligibilityTopicAddress: ffc-sfi-eligibility-check
+  eligibilitySubscriptionAddress: ffc-sfi-eligibility-check-viewer
+  standardsTopicAddress: ffc-sfi-standards-request
+  standardsSubscriptionAddress: ffc-sfi-standards-request-viewer
+  validateTopicAddress: ffc-sfi-agreement-validate
+  validateSubscriptionAddress: ffc-sfi-agreement-validate-viewer
+  submitTopicAddress: ffc-sfi-agreement-submit
+  submitSubscriptionAddress: ffc-sfi-agreement-submit-viewer
+  calculateTopicAddress: ffc-sfi-agreement-calculate
+  calculateSubscriptionAddress: ffc-sfi-agreement-calculate-viewer
+  withdrawTopicAddress: ffc-sfi-agreement-withdraw
+  withdrawSubscriptionAddress: ffc-sfi-agreement-withdraw-viewer
+  paymentApiTopicAddress: ffc-sfi-payment-request-api
+  paymentApiSubscriptionAddress: ffc-sfi-payment-request-api-viewer
+  paymentCalculatorTopicAddress: ffc-sfi-payment-request-calculator
+  paymentCalculatorSubscriptionAddress: ffc-sfi-payment-request-calculator-viewer
+  withdrawApiTopicAddress: ffc-sfi-payment-withdraw-api
+  withdrawApiSubscriptionAddress: ffc-sfi-payment-withdraw-api-viewer
+  withdrawCalculatorTopicAddress: ffc-sfi-payment-withdraw-calculator
+  withdrawCalculatorSubscriptionAddress: ffc-sfi-payment-withdraw-calculator-viewer
+  withdrawViewerTopicAddress: ffc-sfi-payment-withdraw-viewer
+  withdrawViewerSubscriptionAddress: ffc-sfi-payment-withdraw-viewer-viewer
+
+postgresService:
+  postgresDb: ffc_sfi_agreement_viewer
+  # postgresExternalName is the external host name to which PostgreSQL
+  # requests should be forwarded. If empty, PostgreSQL is assumed to be
+  # within the cluster and accessible via postgresHost
+  postgresExternalName:
+  postgresHost: ffc-sfi-agreement-viewer-postgres
+  postgresPort: 5432
+  postgresSchema: public
+  postgresUser: postgres
+
+aadPodIdentity: true
+
+azureIdentity:
+  clientID: not-a-real-clientID
+  resourceID: not-a-real-resourceID
+
+ingress:
+  class: nginx
+  endpoint: ffc-sfi-agreement-viewer
+  server: example.com
+
+service:
+  port: 80
+  type: ClusterIP
+
+livenessProbe:
+  path: /healthz
+  port: 3004
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  path: /healthy
+  port: 3004
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 3
