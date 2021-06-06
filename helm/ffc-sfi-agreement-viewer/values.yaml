@@ -46,16 +46,8 @@ container:
   calculateSubscriptionAddress: ffc-sfi-agreement-calculate-viewer
   withdrawTopicAddress: ffc-sfi-agreement-withdraw
   withdrawSubscriptionAddress: ffc-sfi-agreement-withdraw-viewer
-  paymentApiTopicAddress: ffc-sfi-payment-request-api
-  paymentApiSubscriptionAddress: ffc-sfi-payment-request-api-viewer
-  paymentCalculatorTopicAddress: ffc-sfi-payment-request-calculator
-  paymentCalculatorSubscriptionAddress: ffc-sfi-payment-request-calculator-viewer
-  withdrawApiTopicAddress: ffc-sfi-payment-withdraw-api
-  withdrawApiSubscriptionAddress: ffc-sfi-payment-withdraw-api-viewer
-  withdrawCalculatorTopicAddress: ffc-sfi-payment-withdraw-calculator
-  withdrawCalculatorSubscriptionAddress: ffc-sfi-payment-withdraw-calculator-viewer
-  withdrawViewerTopicAddress: ffc-sfi-payment-withdraw-viewer
-  withdrawViewerSubscriptionAddress: ffc-sfi-payment-withdraw-viewer-viewer
+  paymentTopicAddress: ffc-sfi-payment-request
+  paymentSubscriptionAddress: ffc-sfi-payment-request-viewer
 
 postgresService:
   postgresDb: ffc_sfi_agreement_viewer

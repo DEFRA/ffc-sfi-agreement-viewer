@@ -7,11 +7,7 @@ let validateReceiver
 let calculateReceiver
 let submitReceiver
 let withdrawReceiver
-let paymentApiReceiver
-let paymentCalculatorReceiver
-let withdrawApiReceiver
-let withdrawCalculatorReceiver
-let withdrawViewerReceiver
+let paymentReceiver
 
 async function start () {
   const eligibilityAction = message => processMessage(message, eligibilityReceiver)
@@ -38,25 +34,9 @@ async function start () {
   withdrawReceiver = new MessageReceiver(config.withdrawSubscription, withdrawAction)
   await withdrawReceiver.subscribe()
 
-  const paymentApiAction = message => processMessage(message, paymentApiReceiver)
-  paymentApiReceiver = new MessageReceiver(config.paymentApiSubscription, paymentApiAction)
-  await paymentApiReceiver.subscribe()
-
-  const paymentCalculatorAction = message => processMessage(message, paymentCalculatorReceiver)
-  paymentCalculatorReceiver = new MessageReceiver(config.paymentCalculatorSubscription, paymentCalculatorAction)
-  await paymentCalculatorReceiver.subscribe()
-
-  const withdrawApiAction = message => processMessage(message, withdrawApiReceiver)
-  withdrawApiReceiver = new MessageReceiver(config.withdrawApiSubscription, withdrawApiAction)
-  await withdrawApiReceiver.subscribe()
-
-  const withdrawCalculatorAction = message => processMessage(message, withdrawCalculatorReceiver)
-  withdrawCalculatorReceiver = new MessageReceiver(config.withdrawCalculatorSubscription, withdrawCalculatorAction)
-  await withdrawCalculatorReceiver.subscribe()
-
-  const withdrawViewerAction = message => processMessage(message, withdrawViewerReceiver)
-  withdrawViewerReceiver = new MessageReceiver(config.withdrawViewerSubscription, withdrawViewerAction)
-  await withdrawViewerReceiver.subscribe()
+  const paymentAction = message => processMessage(message, paymentReceiver)
+  paymentReceiver = new MessageReceiver(config.paymentSubscription, paymentAction)
+  await paymentReceiver.subscribe()
 
   console.info('Ready to receive messages')
 }
@@ -68,11 +48,7 @@ async function stop () {
   await calculateReceiver.closeConnection()
   await submitReceiver.closeConnection()
   await withdrawReceiver.closeConnection()
-  await paymentApiReceiver.closeConnection()
-  await paymentCalculatorReceiver.closeConnection()
-  await withdrawApiReceiver.closeConnection()
-  await withdrawCalculatorReceiver.closeConnection()
-  await withdrawViewerReceiver.closeConnection()
+  await paymentReceiver.closeConnection()
 }
 
 module.exports = { start, stop }

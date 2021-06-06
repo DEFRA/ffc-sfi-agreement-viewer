@@ -40,11 +40,7 @@ value.validateSubscription = mqConfig.validateSubscription
 value.calculateSubscription = mqConfig.calculateSubscription
 value.submitSubscription = mqConfig.submitSubscription
 value.withdrawSubscription = mqConfig.withdrawSubscription
-value.paymentApiSubscription = mqConfig.paymentApiSubscription
-value.paymentCalculatorSubscription = mqConfig.paymentCalculatorSubscription
-value.withdrawApiSubscription = mqConfig.withdrawApiSubscription
-value.withdrawCalculatorSubscription = mqConfig.withdrawCalculatorSubscription
-value.withdrawViewerSubscription = mqConfig.withdrawViewerSubscription
+value.paymentSubscription = mqConfig.paymentSubscription
 
 value.dbConfig = dbConfig
 
