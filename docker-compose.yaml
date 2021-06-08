@@ -1,10 +1,45 @@
 version: '3.8'
 
 services:
-  ffc-template-node:
+  ffc-sfi-agreement-viewer:
     build:
       context: .
       target: production
-    image: ffc-template-node
-    container_name: ffc-template-node
-    environment: {}
+    image: ffc-sfi-agreement-viewer
+    container_name: ffc-sfi-agreement-viewer
+    depends_on:
+      - ffc-sfi-agreement-viewer-postgres
+    environment:
+      APPINSIGHTS_CLOUDROLE: ffc-sfi-payments-local
+      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      MESSAGE_QUEUE_HOST: ${MESSAGE_QUEUE_HOST:-notset}
+      MESSAGE_QUEUE_PASSWORD: ${MESSAGE_QUEUE_PASSWORD:-notset}
+      MESSAGE_QUEUE_USER: ${MESSAGE_QUEUE_USER:-notset}
+      ELIGIBILITY_TOPIC_ADDRESS: ${ELIGIBILITY_TOPIC_ADDRESS:-notset}
+      ELIGIBILITY_SUBSCRIPTION_ADDRESS: ${ELIGIBILITY_SUBSCRIPTION_ADDRESS:-notset}
+      STANDARDS_SUBSCRIPTION_ADDRESS: ${STANDARDS_SUBSCRIPTION_ADDRESS:-notset}
+      STANDARDS_TOPIC_ADDRESS: ${STANDARDS_TOPIC_ADDRESS:-notset}
+      VALIDATE_SUBSCRIPTION_ADDRESS: ${VALIDATE_SUBSCRIPTION_ADDRESS:-notset}
+      VALIDATE_TOPIC_ADDRESS: ${VALIDATE_TOPIC_ADDRESS:-notset}
+      CALCULATE_SUBSCRIPTION_ADDRESS: ${CALCULATE_SUBSCRIPTION_ADDRESS:-notset}
+      CALCULATE_TOPIC_ADDRESS: ${CALCULATE_TOPIC_ADDRESS:-notset}
+      SUBMIT_SUBSCRIPTION_ADDRESS: ${SUBMIT_SUBSCRIPTION_ADDRESS:-notset}
+      SUBMIT_TOPIC_ADDRESS: ${SUBMIT_TOPIC_ADDRESS:-notset}
+      WITHDRAW_SUBSCRIPTION_ADDRESS: ${WITHDRAW_SUBSCRIPTION_ADDRESS:-notset}
+      WITHDRAW_TOPIC_ADDRESS: ${WITHDRAW_TOPIC_ADDRESS:-notset}
+      PAYMENT_TOPIC_ADDRESS: ${PAYMENT_TOPIC_ADDRESS:-notset}
+      PAYMENT_SUBSCRIPTION_ADDRESS: ${PAYMENT_SUBSCRIPTION_ADDRESS:-notset}
+      POSTGRES_DB: ffc_sfi_agreement_viewer
+      POSTGRES_HOST: ${POSTGRES_HOST:-ffc-sfi-agreement-viewer-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_SCHEMA_PASSWORD:-ppp}
+      POSTGRES_PORT: 5432
+      POSTGRES_SCHEMA_NAME: ${POSTGRES_SCHEMA_NAME:-public}
+      POSTGRES_USERNAME: ${POSTGRES_SCHEMA_USERNAME:-postgres}
+  
+  ffc-sfi-agreement-viewer-postgres:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: ffc_sfi_agreement_viewer
+      POSTGRES_PASSWORD: ppp
+      POSTGRES_USERNAME: postgres
+

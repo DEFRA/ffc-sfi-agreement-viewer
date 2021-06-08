@@ -1,0 +1,22 @@
+{{- include "ffc-helm-library.container-config-map" (list . "ffc-sfi-agreement-viewer.config-map") -}}
+{{- define "ffc-sfi-agreement-viewer.config-map" -}}
+data:
+  NODE_ENV: {{ quote .Values.environment }}
+  PORT: {{ quote .Values.container.port }}
+  APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
+  MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
+  ELIGIBILITY_TOPIC_ADDRESS: {{ quote .Values.container.eligibilityTopicAddress }}
+  ELIGIBILITY_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.eligibilitySubscriptionAddress }}
+  STANDARDS_TOPIC_ADDRESS: {{ quote .Values.container.standardsTopicAddress }}
+  STANDARDS_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.standardsSubscriptionAddress }}
+  VALIDATE_TOPIC_ADDRESS: {{ quote .Values.container.validateTopicAddress }}
+  VALIDATE_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.validateSubscriptionAddress }}
+  CALCULATE_TOPIC_ADDRESS: {{ quote .Values.container.calculateTopicAddress }}
+  CALCULATE_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.calculateSubscriptionAddress }}
+  SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
+  SUBMIT_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.submitSubscriptionAddress }}
+  WITHDRAW_TOPIC_ADDRESS: {{ quote .Values.container.withdrawTopicAddress }}
+  WITHDRAW_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.withdrawSubscriptionAddress }}
+  PAYMENT_TOPIC_ADDRESS: {{ quote .Values.container.paymentTopicAddress }}
+  PAYMENT_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.paymentSubscriptionAddress }}
+{{- end -}}
