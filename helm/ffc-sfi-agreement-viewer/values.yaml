@@ -81,6 +81,7 @@ livenessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3
+  timeoutSeconds: 3
 
 readinessProbe:
   path: /healthy
@@ -88,3 +89,4 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
   failureThreshold: 3
+  timeoutSeconds: 3
